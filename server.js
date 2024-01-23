@@ -1,10 +1,10 @@
 const mysql = require('mysql');
 
 const db = mysql.createConnection({
-  host: 'smilingwalls.in',
-  user: 'smilingw_sector',
-  password: '67.225.161.168',
-  database: 'smilingw_sector',
+  host: 'sql12.freemysqlhosting.net',
+  user: 'sql12679034',
+  password: 'fbFQSm5G5e',
+  database: 'sql12679034',
 });
 
 db.connect((err) => {
