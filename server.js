@@ -23,6 +23,25 @@ db.connect((err) => {
 
 app.use(bodyParser.json());
 
+// Create table if not exists
+const createTableQuery = `
+  CREATE TABLE IF NOT EXISTS plots (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    mobileNumber VARCHAR(15) NOT NULL,
+    sector VARCHAR(50) NOT NULL,
+    plot VARCHAR(50) NOT NULL,
+    price DECIMAL(10, 2) NOT NULL
+  )
+`;
+db.query(createTableQuery, (err) => {
+  if (err) {
+    console.error('Error creating table:', err);
+    throw err;
+  }
+  console.log('Table created or already exists');
+});
+
 // Add a plot
 app.post('/addPlot', (req, res) => {
   const { name, mobileNumber, sector, plot, price } = req.body;
