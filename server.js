@@ -92,7 +92,7 @@ app.get('/searchPlots/:sector', (req, res) => {
 
 // Endpoint to get available sectors
 app.get('/getSectors', (req, res) => {
-  const query = 'SELECT sector FROM plots'; // Adjust the query based on your table structure
+  const query = 'SELECT DISTINCT sector FROM plots'; // Use DISTINCT to get unique sectors
   db.query(query, (err, results) => {
     if (err) {
       console.error('Error fetching sectors:', err);
@@ -104,6 +104,22 @@ app.get('/getSectors', (req, res) => {
     }
   });
 });
+
+// Endpoint to get plots in a specific sector
+app.get('/getPlotsInSector/:sector', (req, res) => {
+  const sector = req.params.sector;
+  const query = 'SELECT * FROM plots WHERE sector = ?';
+  db.query(query, [sector], (err, results) => {
+    if (err) {
+      console.error('Error fetching plots in sector:', err);
+      res.status(500).send('Error fetching plots in sector');
+    } else {
+      console.log(`Plots in Sector ${sector}:`, results);
+      res.status(200).json(results);
+    }
+  });
+});
+
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
