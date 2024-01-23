@@ -61,6 +61,20 @@ app.post('/addPlot', (req, res) => {
   });
 });
 
+// Get all plots
+app.get('/getAllPlots', (req, res) => {
+  const query = 'SELECT * FROM plots';
+  db.query(query, (err, results) => {
+    if (err) {
+      console.error('Error fetching all plots:', err);
+      res.status(500).send('Error fetching all plots');
+    } else {
+      console.log('All Plots:', results);
+      res.status(200).json(results);
+    }
+  });
+});
+
 // Search for plots by sector
 app.get('/searchPlots/:sector', (req, res) => {
   const sector = req.params.sector;
