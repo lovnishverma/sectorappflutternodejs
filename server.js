@@ -78,7 +78,7 @@ app.get('/searchPlots/:sector', (req, res) => {
 
 // Endpoint to get available sectors
 app.get('/getSectors', (req, res) => {
-  const query = 'SELECT DISTINCT sector FROM plots'; // Adjust the query based on your table structure
+  const query = 'SELECT sector FROM plots'; // Adjust the query based on your table structure
   db.query(query, (err, results) => {
     if (err) {
       console.error('Error fetching sectors:', err);
