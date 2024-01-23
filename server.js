@@ -76,6 +76,21 @@ app.get('/searchPlots/:sector', (req, res) => {
   });
 });
 
+// Endpoint to get available sectors
+app.get('/getSectors', (req, res) => {
+  const query = 'SELECT DISTINCT sector FROM plots'; // Adjust the query based on your table structure
+  db.query(query, (err, results) => {
+    if (err) {
+      console.error('Error fetching sectors:', err);
+      res.status(500).send('Error fetching sectors');
+    } else {
+      const sectors = results.map((result) => result.sector);
+      console.log('Available Sectors:', sectors);
+      res.status(200).json(sectors);
+    }
+  });
+});
+
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
